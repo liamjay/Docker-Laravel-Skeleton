@@ -1,0 +1,22 @@
+version: "2"
+
+services:
+  web:
+    build:
+      context: ./
+      dockerfile: ./web/Dockerfile
+    volumes:
+      - ./app:/var/www/html
+    ports:
+      - "8000:80"
+    links:
+      - db
+  db:
+    image: mysql:5.7
+    ports:
+      - "3001:3306"
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=laravel_skeleton
+      - MYSQL_ROOT_PASSWORD=root
